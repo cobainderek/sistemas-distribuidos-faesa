@@ -1,4 +1,11 @@
+
 # Trabalho de Sistemas Distribuidos - Conteineres Docker
+
+## Video da apresentacao
+
+  [![Apresentacao do trabalho](https://img.youtube.com/vi/DE9zUTwAkFw/maxresdefa
+  ult.jpg)](https://www.youtube.com/watch?v=DE9zUTwAkFw)
+
 
 Ambiente orquestrado via Docker Compose com 4 conteineres:
 
@@ -52,6 +59,8 @@ trabalho-docker/
         ├── index.ejs       # listagem de alunos
         └── form.ejs        # form de novo / editar
 ```
+
+
 
 ## Como o requisito de seguranca do BD foi atendido
 
