@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Alunos</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <div class="page">
+        <header class="page-header">
+            <div class="page-header__text">
+                <h1>Cadastro de Alunos</h1>
+                <p class="subtitle">Trabalho de Sistemas Distribuidos &mdash; Docker + Docker Compose</p>
+            </div>
+            <div class="page-header__actions">
+                <span class="badge"><%= alunos.length %> registro<%= alunos.length === 1 ? '' : 's' %></span>
+                <a class="btn btn-primary" href="/novo">+ Novo aluno</a>
+            </div>
+        </header>
+
+        <% if (alunos.length === 0) { %>
+            <div class="empty-state">
+                <p>Nenhum aluno cadastrado ainda.</p>
+                <a class="btn btn-primary" href="/novo">Cadastrar o primeiro</a>
+            </div>
+        <% } else { %>
+            <section class="cards-grid">
+                <% alunos.forEach(a => { %>
+                    <article class="card">
+                        <div class="card__avatar-wrap">
+                            <div class="avatar avatar--md"
+                                 style="background: linear-gradient(135deg, <%= a.avatar_color %>, <%= escurecerCor(a.avatar_color) %>);"
+                                 aria-hidden="true">
+                                <%= iniciais(a.nome) %>
+                            </div>
+                        </div>
+
+                        <h3 class="card__name"><%= a.nome %></h3>
+                        <p class="card__course"><%= a.curso %></p>
+
+                        <ul class="card__meta">
+                            <li><span class="meta-label">Matricula</span><span class="meta-value"><%= a.matricula %></span></li>
+                            <li><span class="meta-label">Periodo</span><span class="meta-value"><%= a.periodo ? a.periodo + ' º' : '—' %></span></li>
+                        </ul>
+
+                        <div class="card__actions">
+                            <a class="btn btn-primary btn-sm" href="/perfil/<%= a.id %>">Ver perfil</a>
+                            <a class="btn btn-ghost btn-sm" href="/editar/<%= a.id %>">Editar</a>
+                            <form method="POST" action="/excluir/<%= a.id %>" class="inline-form"
+                                  onsubmit="return confirm('Excluir <%= a.nome %>?')">
+                                <button type="submit" class="btn btn-danger btn-sm">Excluir</button>
+                            </form>
+                        </div>
+                    </article>
+                <% }) %>
+            </section>
+        <% } %>
+
+        <footer class="page-footer">
+            <p>
+                Adminer: <a href="http://localhost:8081" target="_blank" rel="noopener">localhost:8081</a>
+                &middot;
+                Portainer: <a href="http://localhost:9000" target="_blank" rel="noopener">localhost:9000</a>
+            </p>
+        </footer>
+    </div>
+</body>
+</html>

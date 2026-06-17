@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= titulo %></title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <div class="page page--narrow">
+        <header class="page-header">
+            <div class="page-header__text">
+                <h1><%= titulo %></h1>
+                <p class="subtitle">Preencha os dados do aluno. Apenas nome, matricula e curso sao obrigatorios.</p>
+            </div>
+            <div class="page-header__actions">
+                <a class="btn btn-ghost" href="/">&larr; Voltar</a>
+            </div>
+        </header>
+
+        <% if (erro) { %>
+            <div class="alert"><%= erro %></div>
+        <% } %>
+
+        <%
+            const v = (campo) => {
+                if (!aluno) return '';
+                const val = aluno[campo];
+                return val === null || val === undefined ? '' : val;
+            };
+            const corAtual = aluno && aluno.avatar_color ? aluno.avatar_color : '#2563eb';
+        %>
+
+        <form method="POST" action="<%= acao %>" class="form">
+            <fieldset class="fieldset">
+                <legend>Identificacao</legend>
+                <div class="grid-2">
+                    <label class="field">
+                        <span class="field__label">Nome <em>*</em></span>
+                        <input type="text" name="nome" required maxlength="120" value="<%= v('nome') %>">
+                    </label>
+                    <label class="field">
+                        <span class="field__label">Matricula <em>*</em></span>
+                        <input type="text" name="matricula" required maxlength="20" value="<%= v('matricula') %>">
+                    </label>
+                </div>
+            </fieldset>
+
+            <fieldset class="fieldset">
+                <legend>Academico</legend>
+                <div class="grid-2">
+                    <label class="field">
+                        <span class="field__label">Curso <em>*</em></span>
+                        <input type="text" name="curso" required maxlength="80" value="<%= v('curso') %>">
+                    </label>
+                    <label class="field">
+                        <span class="field__label">Periodo</span>
+                        <input type="number" name="periodo" min="1" max="12" value="<%= v('periodo') %>">
+                    </label>
+                </div>
+            </fieldset>
+
+            <fieldset class="fieldset">
+                <legend>Contato</legend>
+                <div class="grid-2">
+                    <label class="field">
+                        <span class="field__label">Email</span>
+                        <input type="email" name="email" maxlength="150" value="<%= v('email') %>">
+                    </label>
+                    <label class="field">
+                        <span class="field__label">Telefone</span>
+                        <input type="text" name="telefone" maxlength="20" value="<%= v('telefone') %>" placeholder="(11) 90000-0000">
+                    </label>
+                    <label class="field">
+                        <span class="field__label">LinkedIn</span>
+                        <input type="url" name="linkedin" maxlength="200" value="<%= v('linkedin') %>" placeholder="https://linkedin.com/in/usuario">
+                    </label>
+                    <label class="field">
+                        <span class="field__label">GitHub</span>
+                        <input type="url" name="github" maxlength="200" value="<%= v('github') %>" placeholder="https://github.com/usuario">
+                    </label>
+                </div>
+            </fieldset>
+
+            <fieldset class="fieldset">
+                <legend>Pessoal</legend>
+                <div class="grid-3">
+                    <label class="field">
+                        <span class="field__label">Data de nascimento</span>
+                        <input type="date" name="data_nascimento" value="<%= aluno ? dataIso(aluno.data_nascimento) : '' %>">
+                    </label>
+                    <label class="field">
+                        <span class="field__label">Cidade</span>
+                        <input type="text" name="cidade" maxlength="80" value="<%= v('cidade') %>">
+                    </label>
+                    <label class="field">
+                        <span class="field__label">Estado</span>
+                        <input type="text" name="estado" maxlength="2" minlength="2" value="<%= v('estado') %>" placeholder="SP" style="text-transform:uppercase">
+                    </label>
+                </div>
+            </fieldset>
+
+            <fieldset class="fieldset">
+                <legend>Perfil</legend>
+                <label class="field">
+                    <span class="field__label">Bio</span>
+                    <textarea name="bio" rows="3" maxlength="500" placeholder="Conte algo sobre o aluno em 1-2 frases."><%= v('bio') %></textarea>
+                </label>
+                <label class="field field--inline">
+                    <span class="field__label">Cor do avatar</span>
+                    <input type="color" name="avatar_color" value="<%= corAtual %>">
+                </label>
+            </fieldset>
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">Salvar</button>
+                <a class="btn btn-ghost" href="/">Cancelar</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

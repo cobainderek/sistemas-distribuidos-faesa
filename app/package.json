@@ -1,0 +1,14 @@
+{
+  "name": "trabalho-docker-web",
+  "version": "1.0.0",
+  "description": "Sistema web CRUD de alunos - Trabalho Sistemas Distribuidos",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "ejs": "^3.1.10",
+    "express": "^4.19.2",
+    "pg": "^8.11.5"
+  }
+}
